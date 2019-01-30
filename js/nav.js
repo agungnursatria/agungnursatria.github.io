@@ -49,6 +49,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 getTeam();
             } else if (page === "fav-team") {
                 getFavoriteTeam();
+            } else if (page === "scorer") {
+                getTopScore();
             }
 
             if (this.status == 200) {

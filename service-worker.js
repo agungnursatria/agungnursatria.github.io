@@ -10,6 +10,7 @@ if (workbox){
     { url: '/pages/standings.html', revision: '1' },
     { url: '/pages/team.html', revision: '1' },
     { url: '/pages/fav-team.html', revision: '1' },
+    { url: '/pages/scorer.html', revision: '1' },
     { url: '/css/materialize.min.css', revision: '1' },
     { url: '/js/materialize.min.js', revision: '1' },
     { url: '/js/nav.js', revision: '1' },

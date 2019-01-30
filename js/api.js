@@ -5,6 +5,7 @@ var teamData;
 
 let url_standings = `${base_url}competitions/${id_liga}/standings`;
 let url_team = `${base_url}competitions/${id_liga}/teams`;
+let url_scorer =`${base_url}competitions/${id_liga}/scorers`;
 
 let fetchApi = url => {
   return fetch(url, {
@@ -24,6 +25,7 @@ function status(response) {
     return Promise.resolve(response);
   }
 }
+
 // Blok kode untuk memparsing json menjadi array JavaScript
 function json(response) {
   return response.json();
@@ -73,6 +75,44 @@ function getTeam() {
       setDataToListTeam(data)   
     })
     .catch(error);
+}
+
+function getTopScore() {
+  if ('caches' in window) {
+    caches.match(url_scorer).then(function (response) {
+      if (response) {
+        response.json().then(function (data) {
+          ToTopScrorerHtml(data);
+        });
+      }
+    });
+  }
+
+  fetchApi(url_scorer)
+    .then(status)
+    .then(json)
+    .then(function(data) {
+      ToTopScrorerHtml(data);
+     })
+    .catch(error);
+}
+
+function ToTopScrorerHtml(data){
+    var topScorerTML = '';
+      data.scorers.forEach(function(player) {
+      topScorerTML += `
+               <li class="collection-item">
+                <a href="#">  
+                      <p>${player.player.name}  <a href="#" class="secondary-content">${player.numberOfGoals}</a> <br>
+                        ${player.team.name}
+                      </p>  
+                </a>
+              </li>
+          `;
+    });
+
+    document.getElementById("topScorer").innerHTML = topScorerTML;
+    document.getElementById("header-title").innerHTML = 'Top Scorer';
 }
 
 function setDataToListStandings(data){
